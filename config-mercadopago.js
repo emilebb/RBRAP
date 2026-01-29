@@ -22,19 +22,18 @@ const MERCADO_PAGO_CONFIG = {
     storeName: 'RBR - Moda Franco-Colombiana',
     storeDescription: 'Arte, libertad e identidad en cada prenda',
     
-    // ⚠️ REEMPLAZA ESTO CON TU PUBLIC_KEY DE MERCADO PAGO
-    // Obtén tu clave en: https://www.mercadopago.com/developers/
-    publicKey: 'APP_USR-c8b7a2f4-2e1d-4c5f-9b3a-1d2e3f4a5b6c',
+    // ✅ PUBLIC_KEY DE MERCADO PAGO (CONFIGURADO)
+    publicKey: 'APP_USR-c31a5470-c2a7-44dc-9d63-ff367408c313',
     
     // Moneda y país
     defaultCurrency: 'COP', // Colombia usa COP
     locale: 'es-CO', // Español Colombia
     country: 'CO',
     
-    // URLs de tu tienda
-    successUrl: 'https://tu-dominio.com/pago-exitoso',
-    failureUrl: 'https://tu-dominio.com/pago-fallo',
-    pendingUrl: 'https://tu-dominio.com/pago-pendiente',
+    // URLs de tu tienda (Netlify)
+    successUrl: 'https://697bf0d426afc3af1beec335--phenomenal-croquembouche-dbccfd.netlify.app/',
+    failureUrl: 'https://697bf0d426afc3af1beec335--phenomenal-croquembouche-dbccfd.netlify.app/',
+    pendingUrl: 'https://697bf0d426afc3af1beec335--phenomenal-croquembouche-dbccfd.netlify.app/',
     
     // Preferencias de pago
     maxInstallments: 12, // Máximo de cuotas
