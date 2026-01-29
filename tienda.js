@@ -97,7 +97,6 @@ const translations = {
             paypal: "PayPal",
             transferencia: "Transferencia Bancaria",
             tarjetaCredito: "Tarjeta de Crédito/Débito"
-            madewith: "Hecho con ❤️ entre Bogotá y París"
         }
     },
     en: {
