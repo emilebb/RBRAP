@@ -900,9 +900,6 @@ if (metodoPagoRadios.length > 0) {
 }
 
 // Actualizar el resumen de compra cuando se abre el modal de checkout
-const cartIcon = document.getElementById('cartIcon');
-const originalCartIconListener = cartIcon?.onclick;
-
 if (checkoutForm) {
     checkoutForm.addEventListener('submit', async (e) => {
         e.preventDefault();
