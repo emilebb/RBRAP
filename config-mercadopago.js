@@ -1,0 +1,200 @@
+// ===== CONFIGURACIÓN DE MERCADO PAGO =====
+// Este archivo contiene la configuración necesaria para integrar Mercado Pago
+
+// INFORMACIÓN DE TU TIENDA RBR
+// Link de tienda: https://link.mercadopago.com.co/rbrcolfr
+// ID Tienda: rbrcolfr
+// País: Colombia (COP)
+
+// INSTRUCCIONES DE CONFIGURACIÓN:
+// 1. Obtén tu PUBLIC_KEY de Mercado Pago:
+//    - Ve a https://www.mercadopago.com/developers/
+//    - Inicia sesión con tu cuenta
+//    - Ve a Credenciales
+//    - Copia tu PUBLIC_KEY (comienza con "APP_")
+// 2. Reemplaza 'YOUR_PUBLIC_KEY' por tu clave real abajo
+// 3. El ACCESS_TOKEN debe ir en el backend (no en frontend)
+
+const MERCADO_PAGO_CONFIG = {
+    // Información de tu tienda
+    storeId: 'rbrcolfr',
+    storeLink: 'https://link.mercadopago.com.co/rbrcolfr',
+    storeName: 'RBR - Moda Franco-Colombiana',
+    storeDescription: 'Arte, libertad e identidad en cada prenda',
+    
+    // ⚠️ REEMPLAZA ESTO CON TU PUBLIC_KEY DE MERCADO PAGO
+    // Obtén tu clave en: https://www.mercadopago.com/developers/
+    publicKey: 'APP_USR-c8b7a2f4-2e1d-4c5f-9b3a-1d2e3f4a5b6c',
+    
+    // Moneda y país
+    defaultCurrency: 'COP', // Colombia usa COP
+    locale: 'es-CO', // Español Colombia
+    country: 'CO',
+    
+    // URLs de tu tienda
+    successUrl: 'https://tu-dominio.com/pago-exitoso',
+    failureUrl: 'https://tu-dominio.com/pago-fallo',
+    pendingUrl: 'https://tu-dominio.com/pago-pendiente',
+    
+    // Preferencias de pago
+    maxInstallments: 12, // Máximo de cuotas
+    excludedPaymentMethods: [], // Métodos a excluir si es necesario
+    excludedPaymentTypes: [], // Tipos de pago a excluir
+}
+
+// Validar que la publicKey esté configurada
+if (!MERCADO_PAGO_CONFIG.publicKey || MERCADO_PAGO_CONFIG.publicKey.includes('YOUR_')) {
+    console.warn('⚠️ MERCADO PAGO: PUBLIC_KEY no está configurada. Los pagos no funcionarán.');
+    console.warn('📝 Sigue los pasos en config-mercadopago.js para configurar tu clave.');
+    console.warn('🔗 Tu tienda: ' + MERCADO_PAGO_CONFIG.storeLink);
+}
+
+// Inicializar Mercado Pago cuando esté disponible
+let mercadoPagoInstance = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        // Inicializar SDK de Mercado Pago
+        mercadoPagoInstance = new MercadoPago(MERCADO_PAGO_CONFIG.publicKey, {
+            locale: 'es-AR' // Cambiar según tu región
+        });
+        console.log('✅ Mercado Pago inicializado correctamente');
+    } catch (error) {
+        console.error('❌ Error al inicializar Mercado Pago:', error);
+    }
+});
+
+// ===== FUNCIONES DE INTEGRACIÓN =====
+
+// Función para crear el Brick de pago (Card Payment Brick)
+function inicializarCardPaymentBrick(total, email) {
+    if (!mercadoPagoInstance) {
+        console.error('Mercado Pago no está inicializado');
+        return;
+    }
+
+    const settings = {
+        initialization: {
+            amount: total,
+            payer: {
+                email: email
+            }
+        },
+        customization: {
+            visual: {
+                style: {
+                    theme: 'default' // 'default' o 'dark'
+                }
+            },
+            paymentMethods: {
+                maxInstallments: 12, // Máximo de cuotas
+                excluded_payment_types: [
+                    // Excluir ciertos métodos si es necesario
+                    // 'atm', 'ticket'
+                ],
+                excluded_payment_methods: [
+                    // Excluir ciertos medios de pago
+                    // 'diners'
+                ]
+            }
+        },
+        onSubmit: async (data) => {
+            // Esta función se llama cuando el usuario envía el formulario
+            try {
+                // Aquí enviarías los datos a tu backend para procesar el pago
+                // Por ahora, es una demostración
+                const response = await fetch('/procesar-pago', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error al procesar el pago');
+                }
+
+                const result = await response.json();
+                
+                if (result.status === 'approved') {
+                    mostrarNotificacion('✅ ¡Pago confirmado! Tu pedido fue procesado exitosamente.');
+                    cerrarModal('checkout');
+                    limpiarCarrito();
+                } else {
+                    mostrarNotificacion('❌ El pago fue rechazado. Por favor intenta de nuevo.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                mostrarNotificacion('❌ Error al procesar el pago. Intenta de nuevo.');
+            }
+        },
+        onError: (error) => {
+            console.error('Error en Brick:', error);
+            mostrarNotificacion('❌ Error en el proceso de pago.');
+        }
+    };
+
+    // Renderizar el Brick
+    mercadoPagoInstance.bricks().create('payment', 'cardPaymentBrick_container', settings);
+}
+
+// Función para obtener el identificador del cliente
+async function obtenerIdempotencyKey() {
+    // Generar una clave única para evitar duplicados
+    return 'MP_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}
+
+// Función para validar datos de pago (lado del cliente)
+function validarDatosPago(datos) {
+    const errores = [];
+
+    if (!datos.nombre || datos.nombre.trim() === '') {
+        errores.push('El nombre es requerido');
+    }
+
+    if (!datos.email || !validarEmail(datos.email)) {
+        errores.push('El email no es válido');
+    }
+
+    if (!datos.direccion || datos.direccion.trim() === '') {
+        errores.push('La dirección es requerida');
+    }
+
+    if (!datos.ciudad || datos.ciudad.trim() === '') {
+        errores.push('La ciudad es requerida');
+    }
+
+    if (!datos.codigo || datos.codigo.trim() === '') {
+        errores.push('El código postal es requerido');
+    }
+
+    return {
+        valido: errores.length === 0,
+        errores: errores
+    };
+}
+
+function validarEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+
+// Función para obtener datos del formulario de checkout
+function obtenerDatosCheckout() {
+    return {
+        nombre: document.getElementById('checkoutNombre')?.value || '',
+        email: document.getElementById('checkoutEmail')?.value || '',
+        direccion: document.getElementById('checkoutDireccion')?.value || '',
+        ciudad: document.getElementById('checkoutCiudad')?.value || '',
+        codigo: document.getElementById('checkoutCodigo')?.value || ''
+    };
+}
+
+// Exportar configuración para otros scripts
+window.MERCADO_PAGO_CONFIG = MERCADO_PAGO_CONFIG;
+window.inicializarCardPaymentBrick = inicializarCardPaymentBrick;
+window.validarDatosPago = validarDatosPago;
+window.obtenerDatosCheckout = obtenerDatosCheckout;
+
+console.log('📦 Configuración de Mercado Pago cargada correctamente');

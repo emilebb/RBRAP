@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RBR - Arte, Libertad, Identidad | Moda Franco-Colombiana</title>
+    <meta name="description" content="RBR: Moda franco-colombiana de lujo accesible. Diseño experimental, ediciones limitadas y arte vestible que une Bogotá y París.">
+    <meta name="keywords" content="moda, diseño, bogotá, parís, lujo accesible, experimental, bohemio, arte">
+    <link rel="stylesheet" href="tienda.css">
+    <!-- Mercado Pago SDK -->
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+</head>
+<body>
+
+<!-- HEADER PREMIUM -->
+<header class="header premium-header">
+    <div class="header-container">
+        <div class="logo-section">
+            <div class="logo-main">RBR</div>
+            <p class="logo-subtitle">BOGOTÁ × PARÍS</p>
+        </div>
+        
+        <nav class="nav-main">
+            <a href="#inicio" data-i18n="nav.inicio">Inicio</a>
+            <a href="#colecciones" data-i18n="nav.colecciones">Colecciones</a>
+            <a href="#catalogo" data-i18n="nav.catalogo">Catálogo</a>
+            <a href="#about" data-i18n="nav.about">Sobre RBR</a>
+            <a href="#contacto" data-i18n="nav.contacto">Contacto</a>
+        </nav>
+        
+        <div class="header-actions">
+            <!-- SELECTOR DE IDIOMA -->
+            <div class="language-selector" id="languageSelector">
+                <button class="btn-language" id="btnLanguage">
+                    <span class="globe-icon">🌐</span>
+                    <span class="language-code" id="currentLanguage">ES</span>
+                </button>
+                <div class="language-menu" id="languageMenu">
+                    <div class="language-option" data-lang="es">
+                        <span class="language-name">Español</span>
+                        <span class="language-code-option">ES</span>
+                        <span class="check-mark" id="check-es">✓</span>
+                    </div>
+                    <div class="language-option" data-lang="en">
+                        <span class="language-name">English</span>
+                        <span class="language-code-option">EN</span>
+                        <span class="check-mark" id="check-en"></span>
+                    </div>
+                    <div class="language-option" data-lang="fr">
+                        <span class="language-name">Français</span>
+                        <span class="language-code-option">FR</span>
+                        <span class="check-mark" id="check-fr"></span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-account" id="btnAccount" data-i18n="nav.miCuenta">👤 Mi Cuenta</button>
+            <div class="cart-icon" id="cartIcon">
+                <span class="cart-count" id="cartCount">0</span>
+                🛍️
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- HERO BANNER ARTÍSTICO -->
+<section class="hero-banner" id="inicio">
+    <div class="hero-background">
+        <div class="hero-gradient"></div>
+    </div>
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1 class="hero-title" data-i18n="hero.title">RBR</h1>
+            <p class="hero-subtitle" data-i18n-html="hero.subtitle">La fusión de la elegancia parisina<br>con la fuerza artística colombiana</p>
+            <p class="hero-description" data-i18n="hero.description">Cada prenda cuenta una historia. Somos arte vestible.</p>
+            <button class="btn-hero" data-i18n="hero.cta">Descubre las Colecciones</button>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=600&q=80" alt="Modelo RBR">
+        </div>
+    </div>
+</section>
+
+<!-- SECCIÓN DE COLECCIONES (MINIMALISTA VS MAXIMALISTA) -->
+<section class="collections-section" id="colecciones">
+    <div class="container">
+        <div class="section-header">
+            <h2 data-i18n="collections.heading">Dos Mundos, Una Visión</h2>
+            <p data-i18n="collections.description">Explora nuestras dos líneas de colección que representan la dualidad creativa de RBR</p>
+        </div>
+        
+        <div class="collections-grid">
+            <!-- Colección Minimalista -->
+            <div class="collection-card minimalist">
+                <div class="collection-image">
+                    <img src="https://images.unsplash.com/photo-1552374196-c4e7ffc6441b?auto=format&fit=crop&w=500&q=80" alt="Colección Minimalista">
+                    <div class="collection-overlay">
+                        <h3 data-i18n="collections.minimalistaOverlay">Minimalista</h3>
+                        <p data-i18n="collections.eleganciaFrancesa">Elegancia Francesa</p>
+                    </div>
+                </div>
+                <div class="collection-info">
+                    <h3 data-i18n="collections.minimalista">Línea Minimalista</h3>
+                    <p data-i18n="collections.minimalistaDesc">Cortes precisos, colores neutrales, formas puras. La elegancia de la simplicidad inspirada en París.</p>
+                    <button class="btn-collection" data-i18n="collections.verColeccion">Ver Colección</button>
+                </div>
+            </div>
+            
+            <!-- Colección Maximalista -->
+            <div class="collection-card maximal">
+                <div class="collection-image">
+                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=500&q=80" alt="Colección Maximalista">
+                    <div class="collection-overlay">
+                        <h3 data-i18n="collections.maximalistaOverlay">Maximalista</h3>
+                        <p data-i18n="collections.fuerzaColombiana">Fuerza Colombiana</p>
+                    </div>
+                </div>
+                <div class="collection-info">
+                    <h3 data-i18n="collections.maximalista">Línea Maximalista</h3>
+                    <p data-i18n="collections.maximalistaDesc">Colores vibrantes, patrones atrevidos, texturas ricas. La libertad artística de Bogotá desbordada.</p>
+                    <button class="btn-collection" data-i18n="collections.verColeccion">Ver Colección</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CATÁLOGO DE PRODUCTOS -->
+<section class="catalog-section" id="catalogo">
+    <div class="container">
+        <div class="section-header">
+            <h2 data-i18n="catalog.heading">Colección Actual</h2>
+            <p data-i18n="catalog.description">Piezas cuidadosamente seleccionadas, diseño experimental y ediciones limitadas</p>
+        </div>
+        
+        <div class="filters-bar">
+            <div class="filter-group">
+                <label>Filtrar por línea:</label>
+                <input type="radio" name="linea" value="todas" checked> Todas
+                <input type="radio" name="linea" value="minimalista"> Minimalista
+                <input type="radio" name="linea" value="maximalista"> Maximalista
+            </div>
+            <div class="filter-group">
+                <label>Precio máximo:</label>
+                <input type="range" id="priceRange" min="0" max="500" value="500">
+                <span id="priceValue">$500</span>
+            </div>
+        </div>
+        
+        <div class="products-grid" id="productsGrid">
+            <!-- Los productos se cargan con JavaScript -->
+        </div>
+    </div>
+</section>
+    </section>
+</div>
+
+<!-- SECCIÓN "SOBRE LA MARCA" -->
+<section class="about-section" id="about">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-text">
+                <h2 data-i18n="about.heading">Sobre RBR</h2>
+                <p class="about-intro" data-i18n="about.intro">RBR es más que una marca de moda. Es un movimiento artístico que celebra la fusión de dos culturas: la elegancia sofisticada de París y la fuerza creativa de Bogotá.</p>
+                
+                <div class="about-values">
+                    <div class="value-item">
+                        <h3>🎨 <span data-i18n="about.arteVestible">Arte Vestible</span></h3>
+                        <p data-i18n="about.arteVestibleDesc">Cada prenda es una obra de arte diseñada para que el cliente sea el lienzo de expresión.</p>
+                    </div>
+                    <div class="value-item">
+                        <h3>🌍 <span data-i18n="about.fusionCultural">Fusión Cultural</span></h3>
+                        <p data-i18n="about.fusionCulturalDesc">Combinamos la precisión francesa con la vibración colombiana en cada detalle.</p>
+                    </div>
+                    <div class="value-item">
+                        <h3>♻️ <span data-i18n="about.lujoAccesible">Lujo Accesible</span></h3>
+                        <p data-i18n="about.lujoAccesibleDesc">Alta calidad, diseño experimental y creatividad al alcance de quien busca autenticidad.</p>
+                    </div>
+                    <div class="value-item">
+                        <h3>✨ <span data-i18n="about.libertadExpresion">Libertad de Expresión</span></h3>
+                        <p data-i18n="about.libertadExpresionDesc">Creemos que la moda es libertad personal. Tu estilo, tu historia, tu identidad.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=500&q=80" alt="RBR Concept">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PRÓXIMAS LÍNEAS -->
+<section class="future-lines">
+    <div class="container">
+        <h2 data-i18n="future.heading">Próximamente</h2>
+        <div class="future-grid">
+            <div class="future-item">
+                <div class="future-icon">👗</div>
+                <h3 data-i18n="future.lineaFemenina">Línea Femenina</h3>
+                <p data-i18n="future.lineaFemeninaDesc">La perspectiva femenina de la fusión franco-colombiana.</p>
+            </div>
+            <div class="future-item">
+                <div class="future-icon">⌚</div>
+                <h3 data-i18n="future.accesorios">Accesorios</h3>
+                <p data-i18n="future.accesoriosDesc">Complementos que completan la experiencia RBR.</p>
+            </div>
+            <div class="future-item">
+                <div class="future-icon">👜</div>
+                <h3 data-i18n="future.marroquineria">Marroquinería</h3>
+                <p data-i18n="future.marroquineriaDesc">Cuero artesanal con historias culturales.</p>
+            </div>
+            <div class="future-item">
+                <div class="future-icon">💨</div>
+                <h3 data-i18n="future.perfumeria">Perfumería</h3>
+                <p data-i18n="future.perfumeriaDesc">Aromas que capturan la esencia de RBR.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- MODAL DE PRODUCTO CON STORYTELLING -->
+<div class="modal" id="modalProduct">
+    <div class="modal-content modal-product">
+        <span class="close">&times;</span>
+        <div class="product-detail-container">
+            <div class="product-gallery">
+                <img id="productMainImage" src="" alt="Producto RBR">
+                <div class="product-badges">
+                    <span class="badge-limited" id="badgeLimited">EDICIÓN LIMITADA</span>
+                    <span class="badge-sustainable" id="badgeSustainable">SOSTENIBLE</span>
+                </div>
+            </div>
+            
+            <div class="product-info">
+                <div class="product-header">
+                    <h1 id="productName"></h1>
+                    <div class="product-line" id="productLine"></div>
+                </div>
+                
+                <div class="product-price">
+                    <span class="currency">$</span>
+                    <span id="productPrice">0</span>
+                    <span class="currency-code">COP</span>
+                </div>
+                
+                <!-- STORYTELLING EMOCIONAL -->
+                <div class="product-story">
+                    <h3>La Historia detrás</h3>
+                    <p id="productStory"></p>
+                    <div class="story-highlight" id="storyHighlight"></div>
+                </div>
+                
+                <!-- DETALLES DE DISEÑO -->
+                <div class="product-details">
+                    <h3>Diseño y Materiales</h3>
+                    <ul id="productMaterials">
+                        <li>Material Premium</li>
+                        <li>Fabricación Artesanal</li>
+                        <li>Teñido Natural</li>
+                    </ul>
+                </div>
+                
+                <!-- TAMAÑOS Y SELECCIÓN -->
+                <div class="size-selector">
+                    <label>Talla:</label>
+                    <div class="size-options" id="sizeOptions">
+                        <button class="size-btn" data-size="XS">XS</button>
+                        <button class="size-btn" data-size="S">S</button>
+                        <button class="size-btn" data-size="M" selected>M</button>
+                        <button class="size-btn" data-size="L">L</button>
+                        <button class="size-btn" data-size="XL">XL</button>
+                    </div>
+                </div>
+                
+                <!-- CANTIDAD -->
+                <div class="quantity-selector">
+                    <label>Cantidad:</label>
+                    <div class="quantity-controls">
+                        <button class="btn-qty" id="btnQtyMinus">−</button>
+                        <input type="number" id="productQuantity" value="1" min="1" max="5">
+                        <button class="btn-qty" id="btnQtyPlus">+</button>
+                    </div>
+                </div>
+                
+                <!-- BOTÓN DE COMPRA -->
+                <button class="btn-add-cart" id="btnAddToCart">Añadir al Carrito</button>
+                
+                <!-- INFORMACIÓN ADICIONAL -->
+                <div class="product-footer-info">
+                    <div class="info-item">
+                        <span class="icon">🚚</span>
+                        <p>Envío gratis en Bogotá y París</p>
+                    </div>
+                    <div class="info-item">
+                        <span class="icon">↩️</span>
+                        <p>Devolución fácil en 30 días</p>
+                    </div>
+                    <div class="info-item">
+                        <span class="icon">🎁</span>
+                        <p>Empaque artesanal premium</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CARRITO MODAL -->
+<div class="modal" id="modalCart">
+    <div class="modal-content modal-lg">
+        <span class="close">&times;</span>
+        <h2>Tu Carrito</h2>
+        <div class="cart-items" id="cartItems">
+            <p class="empty-cart">Tu carrito está vacío</p>
+        </div>
+        <div class="cart-summary">
+            <p><strong>Total:</strong> $<span id="cartTotal">0.00</span></p>
+            <button class="btn-primary btn-large" id="btnCheckout">Proceder al Pago</button>
+        </div>
+    </div>
+</div>
+
+<!-- CHECKOUT -->
+<div class="modal" id="modalCheckout">
+    <div class="modal-content modal-lg">
+        <span class="close">&times;</span>
+        <h2 data-i18n="checkout.title">Proceso de Pago</h2>
+        
+        <!-- Resumen de Compra -->
+        <div class="checkout-summary">
+            <h3 data-i18n="checkout.resumen">Resumen de Compra</h3>
+            <div id="checkoutSummary" class="checkout-items"></div>
+            <div class="checkout-total">
+                <span data-i18n="checkout.total">Total:</span>
+                <strong id="checkoutTotal">$0</strong>
+            </div>
+        </div>
+        
+        <form id="checkoutForm" class="checkout-form">
+            <!-- Datos de Envío -->
+            <fieldset>
+                <legend data-i18n="checkout.datosEnvio">Datos de Envío</legend>
+                <input type="text" id="checkoutNombre" placeholder="Nombre completo" required>
+                <input type="email" id="checkoutEmail" placeholder="Correo electrónico" required>
+                <input type="text" id="checkoutDireccion" placeholder="Dirección" required>
+                <input type="text" id="checkoutCiudad" placeholder="Ciudad" required>
+                <input type="text" id="checkoutCodigo" placeholder="Código Postal" required>
+            </fieldset>
+
+            <!-- Método de Pago -->
+            <fieldset>
+                <legend data-i18n="checkout.metodoPago">Método de Pago</legend>
+                <div class="payment-methods">
+                    <label class="payment-method-option">
+                        <input type="radio" name="metodoPago" value="mercadopago" checked>
+                        <div class="payment-method-content">
+                            <span class="payment-method-name">💳 Mercado Pago</span>
+                            <small>Tarjetas, billetera, transferencia</small>
+                        </div>
+                    </label>
+                    <label class="payment-method-option">
+                        <input type="radio" name="metodoPago" value="paypal">
+                        <div class="payment-method-content">
+                            <span class="payment-method-name">🅿️ PayPal</span>
+                            <small>Próximamente</small>
+                        </div>
+                    </label>
+                </div>
+            </fieldset>
+
+            <!-- Contenedor para Mercado Pago -->
+            <div id="mercadopagoContainer" style="display: none;">
+                <h4 data-i18n="checkout.detallesPago">Detalles de Pago</h4>
+                <form id="form-checkout">
+                    <div id="cardPaymentBrick_container"></div>
+                </form>
+            </div>
+
+            <button type="submit" class="btn-primary btn-large" id="btnCheckoutSubmit" data-i18n="checkout.confirmar">Confirmar Compra</button>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL DE CUENTA -->
+<div class="modal" id="modalAccount">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="modal-tabs">
+            <button class="tab-btn active" data-tab="login">Iniciar Sesión</button>
+            <button class="tab-btn" data-tab="register">Crear Cuenta</button>
+        </div>
+        
+        <div id="login" class="tab-content active">
+            <form id="loginForm">
+                <input type="email" placeholder="Correo electrónico" required>
+                <input type="password" placeholder="Contraseña" required>
+                <button type="submit" class="btn-primary">Ingresar</button>
+            </form>
+        </div>
+        
+        <div id="register" class="tab-content">
+            <form id="registerForm">
+                <input type="text" placeholder="Nombre completo" required>
+                <input type="email" placeholder="Correo electrónico" required>
+                <input type="password" placeholder="Contraseña" required>
+                <input type="password" placeholder="Confirmar contraseña" required>
+                <button type="submit" class="btn-primary">Crear Cuenta</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DE PERFIL DE USUARIO -->
+<div class="modal" id="modalProfile">
+    <div class="modal-content profile-modal-content">
+        <span class="close">&times;</span>
+        
+        <div class="profile-wrapper">
+            <!-- Avatar Centrado -->
+            <div class="profile-avatar-center">
+                <img src="https://i.pravatar.cc/150?img=1" alt="Avatar" id="userAvatar">
+            </div>
+            
+            <!-- Nombre y Email -->
+            <div class="profile-header-center">
+                <h1 id="profileName">Nombre Usuario</h1>
+                <p id="profileEmail">usuario@email.com</p>
+            </div>
+            
+            <!-- Botones de Acción -->
+            <div class="profile-buttons">
+                <button class="btn-profile-primary" id="btnEditProfile">✏️ Editar Perfil</button>
+                <button class="btn-profile-secondary" id="btnChangePassword">🔐 Cambiar Contraseña</button>
+            </div>
+            
+            <!-- Tarjeta de Información -->
+            <div class="profile-card">
+                <h2 class="card-title">Información de la Cuenta</h2>
+                
+                <div class="info-row">
+                    <div class="info-row-label">Nombre completo</div>
+                    <div class="info-row-value" id="infoName">Cargando...</div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-row-label">Correo electrónico</div>
+                    <div class="info-row-value" id="infoEmail">Cargando...</div>
+                </div>
+                
+                <div class="info-row">
+                    <div class="info-row-label">Estado de la cuenta</div>
+                    <div class="info-row-value">
+                        <span class="badge-active">✓ Activa</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Botón Cerrar Sesión -->
+            <button class="btn-logout-primary" id="btnLogoutMain">Cerrar Sesión</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL: CAMBIAR CONTRASEÑA -->
+<div class="modal" id="modalChangePassword">
+    <div class="modal-content profile-modal-content">
+        <span class="close">&times;</span>
+        
+        <div class="password-wrapper">
+            <!-- Header -->
+            <div class="password-header">
+                <div class="password-icon">🔐</div>
+                <h1>Cambiar Contraseña</h1>
+                <p>Actualiza tu contraseña para mantener tu cuenta segura</p>
+            </div>
+            
+            <!-- Formulario -->
+            <form id="changePasswordForm" class="password-form">
+                <!-- Campo: Contraseña Actual -->
+                <div class="password-field">
+                    <label for="currentPassword">Contraseña Actual</label>
+                    <div class="input-wrapper">
+                        <input 
+                            type="password" 
+                            id="currentPassword" 
+                            placeholder="Ingresa tu contraseña actual"
+                            required
+                        >
+                        <button type="button" class="toggle-password" data-target="currentPassword">
+                            👁️
+                        </button>
+                    </div>
+                    <span class="error-message" id="currentPasswordError"></span>
+                </div>
+                
+                <!-- Campo: Nueva Contraseña -->
+                <div class="password-field">
+                    <label for="newPassword">Nueva Contraseña</label>
+                    <div class="input-wrapper">
+                        <input 
+                            type="password" 
+                            id="newPassword" 
+                            placeholder="Crea una contraseña fuerte"
+                            required
+                        >
+                        <button type="button" class="toggle-password" data-target="newPassword">
+                            👁️
+                        </button>
+                    </div>
+                    <span class="error-message" id="newPasswordError"></span>
+                    
+                    <!-- Requisitos de Seguridad -->
+                    <div class="password-requirements">
+                        <p class="requirement-title">Requisitos de seguridad:</p>
+                        <div class="requirement-item" id="req-length">
+                            <span class="requirement-check">✗</span>
+                            <span>Mínimo 8 caracteres</span>
+                        </div>
+                        <div class="requirement-item" id="req-uppercase">
+                            <span class="requirement-check">✗</span>
+                            <span>Una mayúscula (A-Z)</span>
+                        </div>
+                        <div class="requirement-item" id="req-number">
+                            <span class="requirement-check">✗</span>
+                            <span>Un número (0-9)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Campo: Confirmar Nueva Contraseña -->
+                <div class="password-field">
+                    <label for="confirmPassword">Confirmar Nueva Contraseña</label>
+                    <div class="input-wrapper">
+                        <input 
+                            type="password" 
+                            id="confirmPassword" 
+                            placeholder="Confirma tu nueva contraseña"
+                            required
+                        >
+                        <button type="button" class="toggle-password" data-target="confirmPassword">
+                            👁️
+                        </button>
+                    </div>
+                    <span class="error-message" id="confirmPasswordError"></span>
+                </div>
+                
+                <!-- Botones -->
+                <div class="password-buttons">
+                    <button type="submit" class="btn-password-submit">Guardar Nueva Contraseña</button>
+                    <button type="button" class="btn-password-cancel" id="btnCancelChangePassword">Cancelar</button>
+                </div>
+                
+                <!-- Mensaje de Éxito -->
+                <div class="success-message" id="successMessage">
+                    ✓ Contraseña actualizada correctamente
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- DIÁLOGO DE CONFIRMACIÓN PARA CERRAR SESIÓN -->
+<div class="modal-overlay" id="logoutConfirmation">
+    <div class="confirmation-dialog">
+        <h2>¿Cerrar sesión?</h2>
+        <p>Se cerrará tu sesión actual</p>
+        <div class="confirmation-buttons">
+            <button class="btn-primary" id="btnConfirmLogout">Cerrar Sesión</button>
+            <button class="btn-secondary" id="btnCancelLogout">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER PREMIUM -->
+<footer class="footer-premium">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4>RBR</h4>
+                <p class="footer-desc">Bogotá × París. Arte, cultura y moda como expresión.</p>
+                <div class="social-links">
+                    <a href="#" title="Instagram">📱</a>
+                    <a href="#" title="TikTok">🎵</a>
+                    <a href="#" title="Email">✉️</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Navegación</h4>
+                <ul>
+                    <li><a href="#colecciones">Colecciones</a></li>
+                    <li><a href="#catalogo">Catálogo</a></li>
+                    <li><a href="#about">Sobre RBR</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Información</h4>
+                <ul>
+                    <li><a href="#politica">Política de Privacidad</a></li>
+                    <li><a href="#terminos">Términos de Uso</a></li>
+                    <li><a href="#envios">Envíos</a></li>
+                    <li><a href="#devoluciones">Devoluciones</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Contacto</h4>
+                <p>Email: hola@rbr.style</p>
+                <p>Instagram: @rbr.style</p>
+                <p>Bogotá, Colombia</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 RBR. Todos los derechos reservados.</p>
+            <p>Hecho con ❤️ entre Bogotá y París</p>
+        </div>
+    </div>
+</footer>
+
+<script src="tienda.js"></script>
+<script src="config-mercadopago.js"></script>
+</body>
+</html>
