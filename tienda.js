@@ -1422,4 +1422,5 @@ function mostrarError(elementId, mensaje) {
     errorEl.textContent = mensaje;
     errorEl.classList.add('show');
     inputEl.classList.add('error');
-}
+}/ /   F o r c e   V e r c e l   r e d e p l o y   -   0 1 / 2 9 / 2 0 2 6   2 3 : 3 2 : 4 3  
+ 
