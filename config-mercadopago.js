@@ -31,9 +31,9 @@ const MERCADO_PAGO_CONFIG = {
     country: 'CO',
     
     // URLs de tu tienda (Netlify)
-    successUrl: 'https://697bf0d426afc3af1beec335--phenomenal-croquembouche-dbccfd.netlify.app/',
-    failureUrl: 'https://697bf0d426afc3af1beec335--phenomenal-croquembouche-dbccfd.netlify.app/',
-    pendingUrl: 'https://697bf0d426afc3af1beec335--phenomenal-croquembouche-dbccfd.netlify.app/',
+    successUrl: 'https://phenomenal-croquembouche-dbccfd.netlify.app/',
+    failureUrl: 'https://phenomenal-croquembouche-dbccfd.netlify.app/',
+    pendingUrl: 'https://phenomenal-croquembouche-dbccfd.netlify.app/',
     
     // Preferencias de pago
     maxInstallments: 12, // Máximo de cuotas
