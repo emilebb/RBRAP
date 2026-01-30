@@ -889,35 +889,41 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 const checkoutForm = document.getElementById('checkoutForm');
 const metodoPagoRadios = document.querySelectorAll('input[name="metodoPago"]');
 const mercadopagoContainer = document.getElementById('mercadopagoContainer');
+const btnCheckoutSubmit = document.getElementById('btnCheckoutSubmit');
 
-// Actualizar UI cuando cambia el método de pago
-if (metodoPagoRadios.length > 0) {
-    metodoPagoRadios.forEach(radio => {
-        radio.addEventListener('change', (e) => {
-            if (e.target.value === 'mercadopago') {
-                mercadopagoContainer.style.display = 'block';
-                // Inicializar Mercado Pago Brick cuando se selecciona
-                setTimeout(() => {
-                    const email = document.getElementById('checkoutEmail')?.value || usuarioActual?.email || '';
-                    const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-                    if (window.inicializarCardPaymentBrick) {
-                        window.inicializarCardPaymentBrick(total, email);
-                    }
-                }, 300);
-            } else {
-                mercadopagoContainer.style.display = 'none';
-            }
-        });
+// Manejar selección de método de pago
+metodoPagoRadios.forEach(radio => {
+    radio.addEventListener('change', () => {
+        if (radio.value === 'mercadopago') {
+            mercadopagoContainer.style.display = 'block';
+            // Inicializar Mercado Pago Brick cuando se selecciona
+            setTimeout(() => {
+                const email = document.getElementById('checkoutEmail')?.value || usuarioActual?.email || '';
+                const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+                if (window.inicializarCardPaymentBrick) {
+                    window.inicializarCardPaymentBrick(total, email);
+                }
+            }, 500);
+        } else {
+            mercadopagoContainer.style.display = 'none';
+        }
     });
-}
+});
 
-// Actualizar el resumen de compra cuando se abre el modal de checkout
+// Manejar envío del formulario de checkout
 if (checkoutForm) {
     checkoutForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
         if (!usuarioActual) {
-            alert('⚠️ Debes iniciar sesión');
+            alert('⚠️ Debes iniciar sesión para finalizar la compra');
+            return;
+        }
+
+        // Obtener método de pago seleccionado
+        const metodoPago = document.querySelector('input[name="metodoPago"]:checked')?.value;
+        if (!metodoPago) {
+            alert('❌ Por favor selecciona un método de pago');
             return;
         }
 
@@ -939,18 +945,15 @@ if (checkoutForm) {
             }
         }
 
-        const metodoPago = document.querySelector('input[name="metodoPago"]:checked')?.value || 'mercadopago';
         const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
         const totalFormato = total.toLocaleString('es-CO');
 
-        // Procesar según el método de pago seleccionado
         if (metodoPago === 'mercadopago') {
-            // Mercado Pago maneja el envío del formulario
-            // El Brick se encargará de procesar el pago
-            console.log('Procesando pago con Mercado Pago...');
+            // Para Mercado Pago, el Brick maneja el proceso
+            alert('🔄 Procesando pago con Mercado Pago...\n\nPor favor completa los datos de la tarjeta en el formulario.');
             // El evento onSubmit del Brick se ejecutará automáticamente
         } else {
-            // Para otros métodos (en el futuro)
+            // Para otros métodos (simulación)
             alert(`✅ ¡Compra confirmada!\n\nNombre: ${datosCheckout.nombre}\nTotal: $${totalFormato} COP\nMétodo: ${metodoPago}\n\nRecibirás un email de confirmación.`);
             carrito = [];
             actualizarCarrito();
@@ -963,9 +966,6 @@ if (checkoutForm) {
     // Escuchar cuando se abre el modal de checkout para actualizar el resumen
     const modalCheckout = document.getElementById('modalCheckout');
     if (modalCheckout) {
-        const originalShow = modalCheckout.classList.add;
-        
-        // Usar un MutationObserver para detectar cambios en el modal
         const observer = new MutationObserver(() => {
             if (modalCheckout.classList.contains('show')) {
                 actualizarResumenCheckout();
