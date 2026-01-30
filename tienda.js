@@ -557,6 +557,18 @@ const productos = [
         materials: ["Algodón reciclado y lana natural", "Tejido artesanal con texturas", "Diseño experimental", "Confección limitada a 40 piezas"],
         isLimited: true,
         isSustainable: true
+    },
+    { 
+        id: 9, 
+        nombre: "Jeans Pintado a Mano", 
+        linea: "maximalista", 
+        precio: 150000, 
+        imagen: "img/WhatsApp Image 2026-01-29 at 6.04.20 PM.jpeg", 
+        descripcion: "Jeans artesanal con diseño único pintado a mano.",
+        story: "Cada pieza es una obra de arte portátil. Diseño pintado a mano que celebra la creatividad colombiana. No hay dos iguales, tu jeans es tan único como tú.",
+        materials: ["Denim 100% algodón", "Pintura textil permanente", "Diseño único pintado a mano", "Lavado a mano recomendado"],
+        isLimited: true,
+        isSustainable: true
     }
 ];
 
