@@ -54,12 +54,33 @@
                 </div>
             </div>
 
-            <button class="btn-account" id="btnAccount" data-i18n="nav.miCuenta">👤 Mi Cuenta</button>
-            <div class="cart-icon" id="cartIcon">
-                <span class="cart-count" id="cartCount">0</span>
-                🛍️
+            <!-- BOTÓN MENÚ MÓVIL -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <!-- ICONOS DE ACCIÓN -->
+            <div class="header-icons">
+                <div class="cart-icon" id="cartIcon">
+                    🛒
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+                <button class="btn-account" id="btnAccount">Mi Cuenta</button>
             </div>
         </div>
+    </div>
+
+    <!-- MENÚ MÓVIL -->
+    <div class="mobile-menu" id="mobileMenu">
+        <nav class="nav-main">
+            <a href="#inicio" data-i18n="nav.inicio">Inicio</a>
+            <a href="#colecciones" data-i18n="nav.colecciones">Colecciones</a>
+            <a href="#catalogo" data-i18n="nav.catalogo">Catálogo</a>
+            <a href="#about" data-i18n="nav.about">Sobre RBR</a>
+            <a href="#contacto" data-i18n="nav.contacto">Contacto</a>
+        </nav>
     </div>
 </header>
 
