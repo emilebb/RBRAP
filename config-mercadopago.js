@@ -72,30 +72,29 @@ function inicializarCardPaymentBrick(total, email) {
         return;
     }
 
+    // Crear preferencia de pago (simulada para demo)
+    // En producción, esto debería venir de tu backend
+    const preferenceId = crearPreferenciaPago(total, email);
+
     const settings = {
         initialization: {
-            amount: total,
+            preferenceId: preferenceId, // Usar preferenceId en lugar de amount
             payer: {
                 email: email,
-                entityType: 'individual' // entityType debe estar dentro de payer
+                entityType: 'individual'
             }
         },
         customization: {
             visual: {
                 style: {
-                    theme: 'default' // 'default' o 'dark'
+                    theme: 'default'
                 }
             },
             paymentMethods: {
-                maxInstallments: 12, // Máximo de cuotas
-                excluded_payment_types: [
-                    // Excluir ciertos métodos si es necesario
-                    // 'atm', 'ticket'
-                ],
-                excluded_payment_methods: [
-                    // Excluir ciertos medios de pago
-                    // 'diners'
-                ]
+                maxInstallments: 12,
+                // Removemos campos vacíos que causan error 400
+                // excluded_payment_types: [],
+                // excluded_payment_methods: []
             }
         },
         callbacks: {
@@ -104,24 +103,24 @@ function inicializarCardPaymentBrick(total, email) {
             },
             onError: (error) => {
                 console.error('❌ Error en Brick de Mercado Pago:', error);
-                mostrarNotificacion('❌ Error al cargar el formulario de pago. Intenta recargar la página.');
+                // Ignorar errores de tracking/adblock
+                if (error.message && error.message.includes('ERR_BLOCKED_BY_CLIENT')) {
+                    console.log('ℹ️ Error de tracking bloqueado (normal con adblock)');
+                } else {
+                    mostrarNotificacion('❌ Error al cargar el formulario de pago. Intenta recargar la página.');
+                }
             },
             onSubmit: async (formData) => {
-                // Esta función se llama cuando el usuario envía el formulario
                 try {
                     console.log('🔄 Procesando pago...', formData);
-                    
-                    // Simulación del proceso de pago
-                    // En producción, esto debería ir a tu backend
                     mostrarNotificacion('🔄 Procesando pago...');
                     
-                    // Simular respuesta exitosa
+                    // En producción, enviar formData a tu backend
                     setTimeout(() => {
                         mostrarNotificacion('✅ ¡Pago procesado exitosamente!');
                         cerrarModal('checkout');
                         limpiarCarrito();
                         
-                        // Mostrar resumen
                         alert(`✅ ¡Compra confirmada!\n\nTotal: $${total.toLocaleString('es-CO')} COP\nMétodo: Mercado Pago\n\nRecibirás un email de confirmación.`);
                     }, 2000);
                     
@@ -134,7 +133,6 @@ function inicializarCardPaymentBrick(total, email) {
     };
 
     try {
-        // Renderizar el Brick
         const brickController = mercadoPagoInstance.bricks().create('payment', 'cardPaymentBrick_container', settings);
         console.log('✅ Brick de Mercado Pago creado correctamente');
         return brickController;
@@ -143,6 +141,37 @@ function inicializarCardPaymentBrick(total, email) {
         mostrarNotificacion('❌ No se pudo cargar el formulario de pago');
         return null;
     }
+}
+
+// Función para crear preferencia de pago (simulada)
+// En producción, esto debe ir en tu backend con access_token
+function crearPreferenciaPago(total, email) {
+    // Simulación de creación de preferencia
+    // En producción real: llamar a tu backend que use la API de Mercado Pago
+    const preferenceData = {
+        items: [{
+            title: "Compra RBR",
+            quantity: 1,
+            unit_price: total,
+            currency_id: "COP"
+        }],
+        payer: {
+            email: email
+        },
+        back_urls: {
+            success: MERCADO_PAGO_CONFIG.successUrl,
+            failure: MERCADO_PAGO_CONFIG.failureUrl,
+            pending: MERCADO_PAGO_CONFIG.pendingUrl
+        },
+        auto_return: "approved",
+        binary_mode: true
+    };
+
+    // Simular ID de preferencia (en producción viene del backend)
+    const simulatedPreferenceId = 'PREF_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    console.log('📝 Preferencia de pago creada (simulada):', simulatedPreferenceId);
+    return simulatedPreferenceId;
 }
 
 // Función para obtener el identificador del cliente
