@@ -76,9 +76,9 @@ function inicializarCardPaymentBrick(total, email) {
         initialization: {
             amount: total,
             payer: {
-                email: email
-            },
-            entityType: 'individual' // Agregar entityType requerido
+                email: email,
+                entityType: 'individual' // entityType debe estar dentro de payer
+            }
         },
         customization: {
             visual: {
