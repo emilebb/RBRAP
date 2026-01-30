@@ -72,16 +72,11 @@ function inicializarCardPaymentBrick(total, email) {
         return;
     }
 
-    // Crear preferencia de pago (simulada para demo)
-    // En producción, esto debería venir de tu backend
-    const preferenceId = crearPreferenciaPago(total, email);
-
     const settings = {
         initialization: {
-            preferenceId: preferenceId, // Usar preferenceId en lugar de amount
+            amount: total,
             payer: {
-                email: email,
-                entityType: 'individual'
+                email: email
             }
         },
         customization: {
@@ -91,10 +86,7 @@ function inicializarCardPaymentBrick(total, email) {
                 }
             },
             paymentMethods: {
-                maxInstallments: 12,
-                // Removemos campos vacíos que causan error 400
-                // excluded_payment_types: [],
-                // excluded_payment_methods: []
+                maxInstallments: 12
             }
         },
         callbacks: {
@@ -115,7 +107,7 @@ function inicializarCardPaymentBrick(total, email) {
                     console.log('🔄 Procesando pago...', formData);
                     mostrarNotificacion('🔄 Procesando pago...');
                     
-                    // En producción, enviar formData a tu backend
+                    // Simulación del proceso de pago
                     setTimeout(() => {
                         mostrarNotificacion('✅ ¡Pago procesado exitosamente!');
                         cerrarModal('checkout');
