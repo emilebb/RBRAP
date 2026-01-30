@@ -714,10 +714,11 @@ body::after {
     background: var(--primary-light);
     padding: var(--spacing-lg);
     border-radius: var(--border-radius);
-    width: 90%;
-    max-width: 500px;
-    box-shadow: var(--shadow-hover);
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
     position: relative;
+    box-shadow: var(--shadow-medium);
     animation: slideDown 0.3s ease;
 }
 
@@ -727,7 +728,8 @@ body::after {
 }
 
 .modal-lg {
-    max-width: 700px;
+    max-width: 90vw;
+    width: 800px;
 }
 
 .close {
